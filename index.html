@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      background-color: rgb(99, 98, 98);
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    .calculator {
+      background-color: #b0aeaac5;
+      width: 300px;
+      margin: 200px auto ;
+      border: 3px solid #080808;
+      padding: 20px;
+      border-radius: 15px;
+    }
+    
+    .calculator input {
+      width: 230px;
+      background-color: #f1f3f4;
+      margin-top: 9px;
+      margin-bottom: 9px;
+      padding: 5px;
+      font-size: 20px;
+      border: 3px solid #0a0a0a;
+      border-radius: 4px;
+    }
+    
+    .calculator button {
+      width: 15%;
+      padding: 11px;
+      font-size: 18px;
+      margin: 5px;
+      border: 2px rgb(67, 67, 67);
+      border-radius: 25px;
+      background-color: #090909;
+      color: rgb(247, 243, 243);
+      cursor: pointer;
+    }
+    
+    .calculator button:hover {
+      background-color: #dd3333;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="result" disabled>
+
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button onclick="calculate('+')">+</button>
+    <br>
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button onclick="calculate('-')">-</button>
+    <br>
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button onclick="calculate('*')">X</button>
+    <br>
+    <button onclick="appendNumber(0)">0</button>
+    <button onclick="appendNumber('.')">.</button>
+    
+    <button onclick="calculate('=')">=</button>
+    <button onclick="calculate('/')">÷</button>
+    <br>
+    <button onclick="clearResult()">AC</button>
+  </div>
+
+  <script>
+    let currentResult = 0;
+    let operator = '';
+    let isOperatorClicked = false;
+
+    function appendNumber(number) {
+      if (isOperatorClicked) {
+        document.getElementById('result').value = '';
+        isOperatorClicked = false;
+      }
+      document.getElementById('result').value += number;
+    }
+
+    function calculate(op) {
+      isOperatorClicked = true;
+
+      switch (operator) {
+        case '+':
+          currentResult += parseFloat(document.getElementById('result').value);
+          break;
+        case '-':
+          currentResult -= parseFloat(document.getElementById('result').value);
+          break;
+        case '*':
+          currentResult *= parseFloat(document.getElementById('result').value);
+          break;
+        case '/':
+          currentResult /= parseFloat(document.getElementById('result').value);
+          break;
+        default:
+          currentResult = parseFloat(document.getElementById('result').value);
+          break;
+      }
+
+      operator = op;
+
+      if (op === '=') {
+        document.getElementById('result').value = currentResult;
+        operator = '';
+      }
+    }
+
+    function clearResult() {
+      currentResult = 0;
+      operator = '';
+      document.getElementById('result').value = '';
+    }
+  </script>
+</body>
+</html>
